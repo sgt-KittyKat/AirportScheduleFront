@@ -59,14 +59,8 @@ def airport_template_view(page: Page, airport: Airport):
     departures_arrivals_switch = Column(
         controls=[
             buttons_row,
-            Container(
-                content=arrivals_list,
-                expand=True,  # Allow the list to fill the remaining space
-            ),
-            Container(
-                content=departures_list,
-                expand=True,  # Allow the list to fill the remaining space
-            ),
+            arrivals_list,
+            departures_list,
         ],
         expand=True,  # Ensure the column fills the space in the parent container
         horizontal_alignment=CrossAxisAlignment.CENTER,
