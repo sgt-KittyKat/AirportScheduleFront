@@ -13,21 +13,26 @@ from utils.constants import *
 from screens.airports import airports_controller
 
 def airport_template_view(page: Page, airport: Airport):
-
     navigation_bar = SingletonNavBar(page).instance
     controller = ind_airport_controller.IndividualAirportController(page, AirportService())
     arrivals_data, departures_data = controller.get_airport_data(airport)
+
+    # Arrivals ListView
     arrivals_list = ListView(
         controls=arrivals_data,
         visible=True,
-        auto_scroll=True,
-        spacing=5
+        spacing=5,
+        expand=True,  # Ensure it expands within the parent container
+        auto_scroll=True,  # Enable scrolling
     )
+
+    # Departures ListView
     departures_list = ListView(
         controls=departures_data,
         visible=False,
-        auto_scroll = True,
-        spacing = 5
+        spacing=5,
+        expand=True,  # Ensure it expands within the parent container
+        auto_scroll=True,  # Enable scrolling
     )
 
     # Function to toggle visibility
@@ -47,26 +52,30 @@ def airport_template_view(page: Page, airport: Airport):
     # Row to hold buttons
     buttons_row = Row(
         controls=[arrivals_button, departures_button],
-        alignment = MainAxisAlignment.CENTER
-                      )
+        alignment=MainAxisAlignment.CENTER
+    )
 
     # Main container
-    departures_arrivals_switch = Container(
-        content=Column(
-            controls=[
-                buttons_row,
-                arrivals_list,
-                departures_list,
-            ],
-            auto_scroll=True,
-            horizontal_alignment=CrossAxisAlignment.CENTER
-        )
+    departures_arrivals_switch = Column(
+        controls=[
+            buttons_row,
+            Container(
+                content=arrivals_list,
+                expand=True,  # Allow the list to fill the remaining space
+            ),
+            Container(
+                content=departures_list,
+                expand=True,  # Allow the list to fill the remaining space
+            ),
+        ],
+        expand=True,  # Ensure the column fills the space in the parent container
+        horizontal_alignment=CrossAxisAlignment.CENTER,
     )
 
     return View(
-            route = page.route,
-            controls = [
-                Container(
+        route=page.route,
+        controls=[
+            Container(
                 bgcolor=colours["background"],
                 width=WINDOW_WIDTH,
                 height=WINDOW_HEIGHT,
@@ -79,7 +88,7 @@ def airport_template_view(page: Page, airport: Airport):
                                 Container(
                                     content=Text(airport.name, size=HEAD_FONT_SIZE),
                                     alignment=alignment.center,
-                                    margin = margin.only(bottom = 50)
+                                    margin=margin.only(bottom=50)
                                 ),
                                 departures_arrivals_switch
                             ],
