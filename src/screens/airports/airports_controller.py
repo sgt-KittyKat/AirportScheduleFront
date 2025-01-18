@@ -9,6 +9,6 @@ def get_airports_data():
     data = r.json()["airports"]
 
     df = pd.DataFrame(data)
-    filtered_data = df[["IATA", "Airport name", "City"]]
+    filtered_data = df[["iata_code", "name", "city"]]
     list_of_lists = filtered_data.values.tolist()
     return list_of_lists
