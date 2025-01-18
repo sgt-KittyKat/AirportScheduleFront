@@ -25,7 +25,7 @@ def airports_view(page: Page):
         alignment=alignment.center
     )
     data = airports_controller.get_airports_data()
-    airport_cards = Column(controls=[])
+    airport_cards = Column(controls=[],)
 
     airport_controller.generate_airport_page(DUMMY_AIRPORT.id)
     airport_cards.controls.append(AirportCard(constants.DUMMY_AIRPORT, page).get_card())

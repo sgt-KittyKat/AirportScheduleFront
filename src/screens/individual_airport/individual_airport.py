@@ -58,6 +58,7 @@ def airport_template_view(page: Page, airport: Airport):
                 arrivals_list,
                 departures_list,
             ],
+            auto_scroll=True,
             horizontal_alignment=CrossAxisAlignment.CENTER
         )
     )
