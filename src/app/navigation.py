@@ -39,13 +39,13 @@ class Navigator:
             )
         elif "airport" in route.route:
             parts = route.route.split("/")
-            id_value = 0
+            code = ""
             for part in parts:
                 if part.startswith("id="):
-                    id_value = int(part.split("=")[1])
+                    code = int(part.split("=")[1])
                     break
 
-            self.page.views.append(airports_controller.generate_airport_page(id_value))
+            self.page.views.append(airports_controller.generate_airport_page(code))
         elif "flights" in route.route:
             parts = route.route.split("/")
             id_value = 0

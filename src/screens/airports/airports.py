@@ -25,9 +25,10 @@ def airports_view(page: Page):
         alignment=alignment.center
     )
     data = airports_controller.get_airports_data()
+    constants.AIRPORTS_DATA = data
     airport_cards = Column(controls=[],)
 
-    airport_controller.generate_airport_page(DUMMY_AIRPORT.id)
+    airport_controller.generate_airport_page(DUMMY_AIRPORT.iata)
     airport_cards.controls.append(AirportCard(constants.DUMMY_AIRPORT, page).get_card())
 
     search_results = Container(
