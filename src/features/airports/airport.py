@@ -7,3 +7,4 @@ class Airport:
     code: str
     city: str
     country: str
+    icao: str

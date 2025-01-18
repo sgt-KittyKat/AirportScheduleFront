@@ -1,13 +1,13 @@
 # components/airport_card.py
 from flet import *
-
+#from app.navigation import Navigator
 from features.airports.airport import Airport
 from utils.constants import colours
 
 
 class AirportCard:
 
-    def __init__(self, airport:Airport):
+    def __init__(self, airport:Airport, page):
         """
         Initialize the airportCard with airport data.
         Args:
@@ -16,6 +16,7 @@ class AirportCard:
         self.airport = airport
         self.card = None  # Will hold the Flet UI representation
         self.destination_page = f"/airports/id={airport.id}"
+        self.page = page
 
     def build(self):
         """
@@ -35,7 +36,7 @@ class AirportCard:
                     #border_radius=10,
                     padding=padding.only(left=20, right=20, top=5, bottom=5)
                 ),
-                #on_click=
+                on_click = lambda e: self.page.go(self.destination_page)
         )
         #print(self.card.content.controls[0].value + "JA DALBAEB")
         #return self.card

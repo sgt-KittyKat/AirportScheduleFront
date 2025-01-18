@@ -16,7 +16,7 @@ def your_flights_view(page: Page):
     flight_controller = FlightController()
 
     flights = flight_controller.get_user_flights(user)
-    flight_cards = [FlightCard(flight).get_card() for flight in flights]
+    flight_cards = [FlightCard(flight, page).get_card() for flight in flights]
 
     navigation_bar = SingletonNavBar(page).instance
 
@@ -24,30 +24,34 @@ def your_flights_view(page: Page):
 
     )
 
-    return Container(
-        bgcolor=colours["background"],
-        width=WINDOW_WIDTH,
-        height=WINDOW_HEIGHT,
-        border=border.all(1, color=colours["gray_text"]),
-        border_radius=35,
-        content=Column(
-            controls=[
-                Column(
-            [
-                        Container(
-                            content=Text("Your Flights", size=HEAD_FONT_SIZE),
-                            alignment=alignment.center
-                        ),
+    return View(
+        route = "/your_flights",
+        controls = [Container(
+                bgcolor=colours["background"],
+                width=WINDOW_WIDTH,
+                height=WINDOW_HEIGHT,
+                border=border.all(1, color=colours["gray_text"]),
+                border_radius=35,
+                content=Column(
+                    controls=[
                         Column(
-                            controls=flight_cards,
-                            spacing=10
-                            ),
+                    [
+                                Container(
+                                    content=Text("Your Flights", size=HEAD_FONT_SIZE),
+                                    alignment=alignment.center
+                                ),
+                                Column(
+                                    controls=flight_cards,
+                                    spacing=10
+                                    ),
+                            ],
+                            alignment=MainAxisAlignment.START,
+                            expand=True,
+                        ),
+                    navigation_bar
                     ],
-                    alignment=MainAxisAlignment.START,
-                    expand=True,
-                ),
-            navigation_bar
-            ],
-            alignment=MainAxisAlignment.SPACE_BETWEEN
-        )
+                    alignment=MainAxisAlignment.SPACE_BETWEEN
+                )
+            )
+        ]
     )

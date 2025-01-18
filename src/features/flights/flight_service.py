@@ -1,12 +1,15 @@
 from daos.flight_dao import FlightDao
+from utils.constants import ADMIN
+
 
 class FlightService:
 
-    def __init__(self, flights_dao):
-        self.flights_dao = FlightDao()
+    def __init__(self):
+        #self.flights_dao = FlightDao()
+        return
 
     def get_flights_by_airports(self):
-        return self.flights_dao.get_flights_by_airports()
+        return ADMIN.upcoming_flights[0]
 
-    def update(self, flight):
-        return self.flights_dao.update_flight()
+
+

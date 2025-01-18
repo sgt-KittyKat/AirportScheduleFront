@@ -6,12 +6,13 @@ from utils.constants import colours
 
 
 class FlightCard:
-    def __init__(self, flight:Flight):
+    def __init__(self, flight:Flight, page):
         """
         Initialize the FlightCard with flight data.
         Args:
             flight (Flight): An instance of the Flight model.
         """
+        self.page = page
         self.flight = flight
         self.card = None  # Will hold the Flet UI representation
         self.destination_page = f"/flights/id={flight.id}"
@@ -20,7 +21,7 @@ class FlightCard:
         """
         Build and return the UI for the FlightCard.
         """
-        self.card = Container(
+        self.card = OutlinedButton(
             content=Row(
                 [
                     # Left Section: Outbound, Destination, Time
@@ -47,10 +48,11 @@ class FlightCard:
                 ],
                 alignment=MainAxisAlignment.SPACE_BETWEEN,
             ),
-            alignment=alignment.center,
-            border=border.all(1, color=colours["gray_text"]),
-            border_radius=10,
-            padding=padding.only(left=20, right=20, top=5, bottom=5)
+            on_click=lambda e: self.page.go(self.destination_page)
+            #alignment=alignment.center,
+            #border=border.all(1, color=colours["gray_text"]),
+            #border_radius=10,
+            #padding=padding.only(left=20, right=20, top=5, bottom=5)
             )
         return self.card
 

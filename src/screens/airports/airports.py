@@ -1,5 +1,7 @@
 from flet import *
 from flet.core.alignment import center
+
+from features.airports.airport_service import AirportService
 from utils import constants
 from components.airport_card import AirportCard
 from components.sing_navigation_bar import SingletonNavBar
@@ -7,9 +9,12 @@ from features.airports.airport import Airport
 from utils.constants import *
 from screens.airports import airports_controller
 
+from screens.individual_airport.ind_airport_controller import IndividualAirportController
+
+
 def airports_view(page: Page):
     navigation_bar = SingletonNavBar(page).instance
-
+    airport_controller = IndividualAirportController(page, AirportService())
     search_tf = Container(
         TextField(
             label="Enter Airport Name",
@@ -19,19 +24,20 @@ def airports_view(page: Page):
         width=300,
         alignment=alignment.center
     )
-
     data = airports_controller.get_airports_data()
-    airport_cards = Column(controls = [])
-    airport_cards.controls.append(AirportCard(constants.DUMMY_AIRPORT).get_card())
+    airport_cards = Column(controls=[])
+
+    airport_controller.generate_airport_page(DUMMY_AIRPORT.id)
+    airport_cards.controls.append(AirportCard(constants.DUMMY_AIRPORT, page).get_card())
 
     search_results = Container(
-                            content=Column(spacing=5),
-                            border=border.all(1, colors.GREY),
-                            border_radius=5,
-                            padding=5,
-                            width=300,
-                            visible = False
-                        )
+        content=Column(spacing=5),
+        border=border.all(1, colors.GREY),
+        border_radius=5,
+        padding=5,
+        width=300,
+        visible=False
+    )
 
     def update_search_results(query):
         search_results.content.controls.clear()
@@ -62,50 +68,53 @@ def airports_view(page: Page):
         page.update()
         print(f"selected_item: {selected_item}")  # Debugging
 
-
         search_tf.content.value = selected_item
         search_results.content.controls.clear()  # Clear results after selection
         search_results.visible = False  # Hide the results
 
         airport_data = selected_item.split(", ")
 
-        new_airport = Airport(1, airport_data[1], airport_data[0], airport_data[2], "NONE")
+        new_airport = Airport(2, airport_data[1], airport_data[0], airport_data[2], "NONE", "NONE")
 
-        #print(new_airport)
-        new_card = AirportCard(new_airport).get_card()
-        #page.controls.append(new_card)
+        # print(new_airport)
+        # airport_controller.generate_airport_page(new_airport.id)
+        new_card = AirportCard(new_airport, page).get_card()
+        # page.controls.append(new_card)
         airport_cards.controls.append(
             new_card
         )
-        #print(airport_cards)
+        # print(airport_cards)
         page.update()
 
-
-    return Container(
-        bgcolor=colours["background"],
-        width=WINDOW_WIDTH,
-        height=WINDOW_HEIGHT,
-        border=border.all(1, color=colours["gray_text"]),
-        border_radius=35,
-        content=Column(
-            controls=[
-                Column(
-                    [
-                        Container(
-                            content=Text("Airports", size=HEAD_FONT_SIZE),
-                            alignment=alignment.center,
-                            margin = margin.only(bottom = 50)
-                        ),
-                        search_tf,
-                        search_results,
-                        airport_cards
-                    ],
-                    alignment=MainAxisAlignment.START,
-                    horizontal_alignment=CrossAxisAlignment.CENTER,
-                    expand=True,
-                ),
-                navigation_bar
-            ],
-            alignment=MainAxisAlignment.SPACE_BETWEEN
+    return View(
+        route="/airports",
+        controls=[Container(
+            bgcolor=colours["background"],
+            width=WINDOW_WIDTH,
+            height=WINDOW_HEIGHT,
+            border=border.all(1, color=colours["gray_text"]),
+            border_radius=35,
+            content=Column(
+                controls=[
+                    Column(
+                        [
+                            Container(
+                                content=Text("Airports", size=HEAD_FONT_SIZE),
+                                alignment=alignment.center,
+                                margin=margin.only(bottom=50)
+                            ),
+                            search_tf,
+                            search_results,
+                            airport_cards
+                        ],
+                        alignment=MainAxisAlignment.START,
+                        horizontal_alignment=CrossAxisAlignment.CENTER,
+                        expand=True,
+                    ),
+                    navigation_bar
+                ],
+                alignment=MainAxisAlignment.SPACE_BETWEEN
+            )
         )
+        ]
     )
