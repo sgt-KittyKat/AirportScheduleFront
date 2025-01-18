@@ -7,6 +7,7 @@ from components.sing_navigation_bar import SingletonNavBar
 from features.flights.flight_service import FlightService
 from screens.airports import airports_controller
 from screens.search_flight.search_flight_controller import SearchFlightController
+from utils import constants
 #from screens.search_flight import search_flight_controller
 from utils.constants import *
 
@@ -15,9 +16,44 @@ def search_flight_view(page: Page):
     navigation_bar = SingletonNavBar(page).instance
     search_flight_controller = SearchFlightController(page, FlightService())
     data = airports_controller.get_airports_data()
+    complain = Text(
+        value = "Please choose airports out of the list",
+        color = colors.RED,
+        visible = False
+    )
+    def check_input():
+        departure = departure_tf.value.split(", ")
+        arrival = arrival_tf.value.split(", ")
+        iata_arrival = arrival[0]
+        iata_depature = departure[0]
+        airports = constants.AIRPORTS_DATA
+        complain_d = True
+        complain_a = True
+        for airport in airports:
+            if airport[0] == iata_arrival:  # The first element is iata_code
+                complain_a = False
+            if airport[0] == iata_depature:
+                complain_d = False
+
+        return complain_d or complain_a
+
+
 
     def submit_button_click(e):
-        search_flight_controller.send_flight_search_request()
+        if check_input():
+            complain.visible = True
+            page.update()
+            return
+        else:
+            complain.visible = False
+            page.update()
+
+        departure = departure_tf.value.split(", ")
+        arrival = arrival_tf.value.split(", ")
+        iata_arrival = arrival[0]
+        iata_depature = departure[0]
+
+        search_flight_controller.send_flight_search_request(iata_depature, iata_arrival)
 
     headline = Container(
         content=Text("Search flights", size=HEAD_FONT_SIZE),
@@ -128,6 +164,7 @@ def search_flight_view(page: Page):
                                             arrival_results,  # Dropdown for arrival
                                             date_pick_button,
                                             submit_button,
+                                            complain
                                         ],
                                         horizontal_alignment=CrossAxisAlignment.CENTER,
                                         spacing=30,

@@ -15,7 +15,7 @@ class FlightCard:
         self.page = page
         self.flight = flight
         self.card = None  # Will hold the Flet UI representation
-        self.destination_page = f"/flights/id={flight.id}"
+        self.destination_page = f"/flights/id={flight.flight_number}"
 
     def build(self):
         """

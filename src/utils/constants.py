@@ -25,30 +25,7 @@ ADMIN = User(
         1,
         username="admin",
         password="admin",
-        upcoming_flights = [Flight(
-                id = 1,
-                origin="WAW",
-                destination="BER",
-                departure_time="19:30",
-                arrival_time="21:00",
-                #departure_date="16.10.2024",
-                flight_number="OS 220",
-                #airline="Austrian Airlines",
-                #aircraft="EMBRAER 195",
-                status="Check-in closed"
-        ),
-        Flight(
-                id = 1,
-                origin="BO",
-                destination="BER",
-                departure_time="19:30",
-                arrival_time="21:00",
-                #departure_date="16.10.2024",
-                flight_number="OS 220",
-                #airline="Austrian Airlines",
-                #aircraft="EMBRAER 195",
-                status="Check-in closed"
-        )
+        upcoming_flights = [
         ],
         flight_history=[]
 )

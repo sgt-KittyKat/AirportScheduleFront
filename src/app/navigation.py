@@ -48,12 +48,12 @@ class Navigator:
             self.page.views.append(airports_controller.generate_airport_page(code))
         elif "flights" in route.route:
             parts = route.route.split("/")
-            id_value = 0
+            flight_code = ""
             for part in parts:
                 if part.startswith("id="):
-                    id_value = int(part.split("=")[1])
+                    flight_code = int(part.split("=")[1])
                     break
 
-            self.page.views.append(flight_controller.generate_flight_page())
+            self.page.views.append(flight_controller.generate_flight_page(flight_code))
         self.page.update()
         print("Route has changed:", route)

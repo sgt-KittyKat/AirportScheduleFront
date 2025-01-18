@@ -16,9 +16,9 @@ class IndividualFlightController:
         self.service = service
         return
 
-    def get_flight_data(self):
-        return self.service.get_flight_data()
+    def get_flight_data(self, code):
+        return self.service.get_flight_data_by_flight_code(code)
 
-    def generate_flight_page(self):
-        flight = self.get_flight_data()
+    def generate_flight_page(self, code):
+        flight = self.get_flight_data(code)
         return individual_flight.flight_template_view(self.page, flight)

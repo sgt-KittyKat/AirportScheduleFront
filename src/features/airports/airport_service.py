@@ -13,6 +13,8 @@ class AirportService:
         print(data)
         arrivals = data["arrivals"]
         departures = data["departures"]
+        print(arrivals)
+        print(departures)
         return arrivals, departures
 
 

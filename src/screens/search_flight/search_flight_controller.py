@@ -1,6 +1,5 @@
 import pandas as pd
 from flet.core.page import Page
-
 from features.flights.flight_service import FlightService
 
 
@@ -11,4 +10,4 @@ class SearchFlightController:
 
 
     def send_flight_search_request(self, origin, destination):
-        return
+        print(self.service.get_flights_by_airports(origin, destination))
