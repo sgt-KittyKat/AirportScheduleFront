@@ -75,10 +75,10 @@ def airports_view(page: Page):
 
         airport_data = selected_item.split(", ")
 
-        new_airport = Airport(2, airport_data[1], airport_data[0], airport_data[2], "NONE", "NONE")
+        new_airport = Airport(airport_data[1], airport_data[0], airport_data[2])
 
         # print(new_airport)
-        # airport_controller.generate_airport_page(new_airport.id)
+        airport_controller.generate_airport_page(new_airport.iata)
         new_card = AirportCard(new_airport, page).get_card()
         # page.controls.append(new_card)
         airport_cards.controls.append(

@@ -42,7 +42,7 @@ class Navigator:
             code = ""
             for part in parts:
                 if part.startswith("id="):
-                    code = int(part.split("=")[1])
+                    code = str(part.split("=")[1])
                     break
 
             self.page.views.append(airports_controller.generate_airport_page(code))

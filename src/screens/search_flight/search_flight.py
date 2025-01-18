@@ -4,18 +4,20 @@ from flet import *
 from flet.core.alignment import center
 
 from components.sing_navigation_bar import SingletonNavBar
+from features.flights.flight_service import FlightService
 from screens.airports import airports_controller
+from screens.search_flight.search_flight_controller import SearchFlightController
 #from screens.search_flight import search_flight_controller
 from utils.constants import *
 
 
 def search_flight_view(page: Page):
     navigation_bar = SingletonNavBar(page).instance
-
+    search_flight_controller = SearchFlightController(page, FlightService())
     data = airports_controller.get_airports_data()
 
     def submit_button_click(e):
-        print("do something")
+        search_flight_controller.send_flight_search_request()
 
     headline = Container(
         content=Text("Search flights", size=HEAD_FONT_SIZE),

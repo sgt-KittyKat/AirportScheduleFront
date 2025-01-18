@@ -53,7 +53,7 @@ ADMIN = User(
         flight_history=[]
 )
 
-DUMMY_AIRPORT = Airport(1, "KURWA AIRPORT", "KUR", "KURISKO", "KURWISTAN", "ICAO")
+DUMMY_AIRPORT = Airport("KURWA AIRPORT", "BER", "KURISKO",)
 
 DB_PATH = "..."
 

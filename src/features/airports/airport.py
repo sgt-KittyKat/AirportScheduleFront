@@ -2,9 +2,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Airport:
-    id: int
     name: str
-    code: str
+    iata: str
     city: str
-    country: str
-    icao: str
+    #icao: str

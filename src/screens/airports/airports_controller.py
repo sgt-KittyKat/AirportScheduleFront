@@ -6,6 +6,7 @@ from utils.constants import SERVER_LINK
 
 def get_airports_data():
     r = requests.get(SERVER_LINK + "/airports")
+    print(r)
     data = r.json()["airports"]
 
     df = pd.DataFrame(data)

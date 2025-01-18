@@ -15,7 +15,7 @@ class AirportCard:
         """
         self.airport = airport
         self.card = None  # Will hold the Flet UI representation
-        self.destination_page = f"/airports/id={airport.id}"
+        self.destination_page = f"/airports/id={airport.iata}"
         self.page = page
 
     def build(self):
@@ -27,7 +27,7 @@ class AirportCard:
                     content=Row(
                         [
                             # Left Section: Outbound, Destination, Time
-                            Text(value=f"{self.airport.name}, {self.airport.code}", size = 20)
+                            Text(value=f"{self.airport.name}, {self.airport.iata}", size = 20)
                         ],
                         alignment=MainAxisAlignment.SPACE_BETWEEN,
                     ),

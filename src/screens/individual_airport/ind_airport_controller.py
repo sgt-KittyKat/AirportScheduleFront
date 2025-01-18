@@ -22,8 +22,9 @@ class IndividualAirportController:
     def find_airport_by_iata(self, iata_code):
         airports = constants.AIRPORTS_DATA
         for airport in airports:
-            if airport.get('iata_code') == iata_code:
-                return airport
+            print(airport[0])
+            if airport[0] == iata_code:  # The first element is iata_code
+                return {"iata": airport[0], "name": airport[1], "city": airport[2]}
         return None  # Return None if not found
 
 
@@ -33,8 +34,8 @@ class IndividualAirportController:
 
 
     def get_airport_data(self, airport:Airport):
-        icao = airport.icao
-        arrivals, departures = self.service.get_airport_data_by_icao(icao)
+        iata = airport.iata
+        arrivals, departures = self.service.get_airport_data_by_iata(iata)
         arrival_flight_cards = [FlightCardUnclickable(Flight(**arrival), self.page).get_card() for arrival in arrivals]
         departure_flight_cards = [FlightCardUnclickable(Flight(**departure), self.page).get_card() for departure in departures]
         return arrival_flight_cards, departure_flight_cards
