@@ -20,7 +20,7 @@ class FlightCardUnclickable(FlightCard):
                                  size=20, weight=FontWeight.BOLD),
                             Text(f"{self.flight.departure_time} - {self.flight.arrival_time}", size=16,
                                  weight=FontWeight.BOLD),
-                            Text(self.flight.departure_date, size=16, weight=FontWeight.BOLD),
+                            #Text(self.flight.departure_date, size=16, weight=FontWeight.BOLD),
                         ],
                         alignment=MainAxisAlignment.START,
                         spacing=5,
@@ -29,8 +29,8 @@ class FlightCardUnclickable(FlightCard):
                     Column(
                         [
                             Text(self.flight.flight_number, size=16, weight=FontWeight.BOLD),
-                            Text(self.flight.airline, size=14, color=colors.GREY_600),
-                            Text(self.flight.aircraft, size=14, color=colors.GREY_600),
+                            #Text(self.flight.airline, size=14, color=colors.GREY_600),
+                            #Text(self.flight.aircraft, size=14, color=colors.GREY_600),
                         ],
                         alignment=MainAxisAlignment.CENTER,
                         horizontal_alignment=CrossAxisAlignment.END,

@@ -56,13 +56,13 @@ def get_airport_iata(iata_code):
             'id': 1,
             'origin': 'WAW',
             'destination': 'BER',
-            'departure_date': 'now',
+            #'departure_date': 'now',
             'status': 'boarding',
             'departure_time': '11:00',
             'arrival_time': '13:00',
             'flight_number': '1234',
-            'airline': 'KURWA AIRLINES',
-            'aircraft': 'KURWOLOT'
+            #'airline': 'KURWA AIRLINES',
+            #'aircraft': 'KURWOLOT'
         }
     ]
 
@@ -71,13 +71,13 @@ def get_airport_iata(iata_code):
             'id': 1,
             'origin': 'KURWA',
             'destination': 'BER',
-            'departure_date': 'now',
+            #'departure_date': 'now',
             'status': 'boarding',
             'departure_time': '11:00',
             'arrival_time': '13:00',
             'flight_number': '1234',
-            'airline': 'KURWA AIRLINES',
-            'aircraft': 'KURWOLOT'
+            #'airline': 'KURWA AIRLINES',
+            #'aircraft': 'KURWOLOT'
         }
     ]
 

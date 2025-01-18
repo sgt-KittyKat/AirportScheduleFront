@@ -31,10 +31,10 @@ ADMIN = User(
                 destination="BER",
                 departure_time="19:30",
                 arrival_time="21:00",
-                departure_date="16.10.2024",
+                #departure_date="16.10.2024",
                 flight_number="OS 220",
-                airline="Austrian Airlines",
-                aircraft="EMBRAER 195",
+                #airline="Austrian Airlines",
+                #aircraft="EMBRAER 195",
                 status="Check-in closed"
         ),
         Flight(
@@ -43,10 +43,10 @@ ADMIN = User(
                 destination="BER",
                 departure_time="19:30",
                 arrival_time="21:00",
-                departure_date="16.10.2024",
+                #departure_date="16.10.2024",
                 flight_number="OS 220",
-                airline="Austrian Airlines",
-                aircraft="EMBRAER 195",
+                #airline="Austrian Airlines",
+                #aircraft="EMBRAER 195",
                 status="Check-in closed"
         )
         ],

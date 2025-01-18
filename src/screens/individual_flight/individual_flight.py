@@ -33,7 +33,7 @@ def flight_template_view(page: Page, flight: Flight):
             bgcolor= colors.WHITE,
             alignment=alignment.center,
             content = Text(
-                "GO TO GATE",
+                flight.status,
                 size=20,
                 weight="bold",
                 #color=colours["background"],  # White text

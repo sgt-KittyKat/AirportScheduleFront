@@ -4,3 +4,6 @@ class UserService:
     def get_user_by_username(self, username: str):
         return self.dao.get_user_by_username(username)
 
+
+    #def get_user_flights(self, user):
+
