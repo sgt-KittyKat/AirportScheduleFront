@@ -19,11 +19,15 @@ def airport_template_view(page: Page, airport: Airport):
     arrivals_data, departures_data = controller.get_airport_data(airport)
     arrivals_list = ListView(
         controls=arrivals_data,
-        visible=True
+        visible=True,
+        auto_scroll=True,
+        spacing=5
     )
     departures_list = ListView(
         controls=departures_data,
-        visible=False
+        visible=False,
+        auto_scroll = True,
+        spacing = 5
     )
 
     # Function to toggle visibility
