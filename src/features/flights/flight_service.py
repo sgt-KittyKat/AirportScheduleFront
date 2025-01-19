@@ -29,9 +29,11 @@ class FlightService:
 
 
     def get_flight_data_by_flight_code(self, code):
-        data = {"code": code}
-        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        response = requests.post(SERVER_LINK + "/flight", data, headers=headers)
+        data = {"flight_number": code}
+        #print(data)
+        headers = {'Content-type': 'application/json', 'Accept': '*'}
+        response = requests.post(SERVER_LINK + "/flight", json.dumps(data), headers=headers)
+        #print(response.content)
         data = response.json()
-        print(data)
+        #print(data)
         return data

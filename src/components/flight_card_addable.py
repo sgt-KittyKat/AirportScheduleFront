@@ -11,6 +11,7 @@ class FlightCardAddable(FlightCard):
 
     #def add_to_upcoming_flights(self):
 
+
     def build(self):
         self.card = OutlinedButton(
             content=Row(
@@ -47,3 +48,4 @@ class FlightCardAddable(FlightCard):
             # padding=padding.only(left=20, right=20, top=5, bottom=5)
         )
         return self.card
+

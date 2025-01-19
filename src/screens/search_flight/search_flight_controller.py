@@ -10,4 +10,4 @@ class SearchFlightController:
 
 
     def send_flight_search_request(self, origin, destination):
-        print(self.service.get_flights_by_airports(origin, destination))
+        return self.service.get_flights_by_airports(origin, destination)

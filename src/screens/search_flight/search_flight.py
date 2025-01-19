@@ -1,8 +1,10 @@
 import datetime
+from re import search
 
 from flet import *
 from flet.core.alignment import center
 
+from components.flight_card import FlightCard
 from components.sing_navigation_bar import SingletonNavBar
 from features.flights.flight_service import FlightService
 from screens.airports import airports_controller
@@ -16,6 +18,9 @@ def search_flight_view(page: Page):
     navigation_bar = SingletonNavBar(page).instance
     search_flight_controller = SearchFlightController(page, FlightService())
     data = airports_controller.get_airports_data()
+
+    flight_cards = []
+
     complain = Text(
         value = "Please choose airports out of the list",
         color = colors.RED,
@@ -39,7 +44,7 @@ def search_flight_view(page: Page):
 
 
 
-    def submit_button_click(e):
+    def submit_button_click():
         if check_input():
             complain.visible = True
             page.update()
@@ -53,13 +58,20 @@ def search_flight_view(page: Page):
         iata_arrival = arrival[0]
         iata_depature = departure[0]
 
-        search_flight_controller.send_flight_search_request(iata_depature, iata_arrival)
+        flights_data = search_flight_controller.send_flight_search_request(iata_depature, iata_arrival)
+        print(flights_data)
+        for flight in flights_data:
+            flights_list_view.controls.append(FlightCard(flight, page).get_card())
+        print(flight_cards)
+
+        show_flights()
 
     headline = Container(
         content=Text("Search flights", size=HEAD_FONT_SIZE),
         alignment=alignment.center,
         margin=margin.only(bottom=100),
     )
+
 
     departure_tf = TextField(
         label="Departure",
@@ -83,7 +95,7 @@ def search_flight_view(page: Page):
 
     submit_button = ElevatedButton(
         "Search flights",
-        on_click=submit_button_click,
+        on_click=lambda e: submit_button_click()
     )
 
     # Separate search results containers for departure and arrival fields
@@ -140,6 +152,57 @@ def search_flight_view(page: Page):
         results_container.visible = False
         page.update()
 
+
+    flights_list_view = ListView(
+        controls = flight_cards,
+        #visible=False,
+        spacing=5,
+        expand=True,  # Ensure it expands within the parent container
+        auto_scroll=True,  # Enable scrolling
+    )
+
+
+    search_fields = Column(
+        controls=[
+            headline,
+            Container(departure_tf),
+            departure_results,  # Dropdown for departure
+            Container(arrival_tf),
+            arrival_results,  # Dropdown for arrival
+            date_pick_button,
+            submit_button,
+            complain
+        ],
+        horizontal_alignment=CrossAxisAlignment.CENTER,
+        spacing=30,
+        visible = True
+    )
+
+    def show_flights():
+        flight_fields.visible = True
+        search_fields.visible = False
+        page.update()
+
+
+    def show_search():
+        flight_fields.visible = False
+        search_fields.visible = True
+        flights_list_view.controls.clear()
+        page.update()
+
+
+    flight_fields = Column(
+        controls=[
+            flights_list_view,
+            ElevatedButton(
+                text = "Go back",
+                icon=icons.ARROW_LEFT,
+                on_click=lambda e: show_search()
+            )
+        ],
+        visible=False
+    )
+
     return View(
         route="/add_flight/search_your_journey",
         controls=[
@@ -155,20 +218,8 @@ def search_flight_view(page: Page):
                             content=Stack(
                                 controls=[
                                     # Main content
-                                    Column(
-                                        controls=[
-                                            headline,
-                                            Container(departure_tf),
-                                            departure_results,  # Dropdown for departure
-                                            Container(arrival_tf),
-                                            arrival_results,  # Dropdown for arrival
-                                            date_pick_button,
-                                            submit_button,
-                                            complain
-                                        ],
-                                        horizontal_alignment=CrossAxisAlignment.CENTER,
-                                        spacing=30,
-                                    ),
+                                    flight_fields,
+                                    search_fields,
                                 ]
                             ),
                             padding=20,
