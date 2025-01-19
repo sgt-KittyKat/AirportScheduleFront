@@ -10,7 +10,6 @@ class AuthService:
     def __init__(self):
         self.logged_in_user = User(1, "admin", "admin", [], [])
 
-
     def login(self, email, password):
         #password_hash = str(bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))
         password_hash = password
@@ -20,10 +19,12 @@ class AuthService:
             r = requests.post(SERVER_LINK + "/login", data, headers=headers)
             response_data = r.json()
             response_code = r.status_code
+            print(r.headers)
             if response_code == 200:
-                return "Login successful", session.cookies
+                session_id = r.cookies.get("session")
+                return {"success": True, "message": "Login successful", "session_id": session_id}
             else:
-                return response_data.get("error", "Invalid credentials"),
+                return {"success": False, "message": response_data.get("error", "Invalid credentials")}
 
 
     def register(self, email, password):

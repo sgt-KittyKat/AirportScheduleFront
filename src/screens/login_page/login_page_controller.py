@@ -1,5 +1,7 @@
 from email_validator import EmailNotValidError, validate_email
 from flet import *
+from requests import session
+
 from features.users import auth_service
 from features.users.auth_service import AuthService
 import email_validator
@@ -14,11 +16,13 @@ class LoginPageController:
             return "Please enter a valid email address"
 
         response = self.auth_serv.login(email, password)
+        session_id = ""
+        if response["success"] is True:
+            session_id = response['session_id']
+            self.page.client_storage.set("session_id", session_id)
         print(response)
-        #if response[0] == "Login successful":
-            #self.page.client_storage
 
-        return
+        return response
 
 
     def validate_email(self, email):

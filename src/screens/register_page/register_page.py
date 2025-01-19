@@ -19,8 +19,16 @@ def register_view(page: Page):
         username = email_tf.content.value
         password = pw_tf.content.value
         repeat_password = repeat_pw_tf.content.value
-        registration_controller.register_user(username, password, repeat_password)
+        response = registration_controller.register_user(username, password, repeat_password)
+        complain.value = response
+        complain.visible = True
+        page.update()
 
+    complain = Text(
+        value="Invalid email or password",
+        color=colors.RED,
+        visible=False
+    )
 
     navigation_bar = SingletonNavBar(page).instance
     register_text = Text(
@@ -103,12 +111,13 @@ def register_view(page: Page):
                                 pw_tf,
                                 repeat_pw_tf,
                                 submit_button,
+                                complain
                             ],
                             alignment=MainAxisAlignment.START,
                             horizontal_alignment=CrossAxisAlignment.CENTER,
                             expand=True,
                         ),
-                        navigation_bar,
+                        #navigation_bar,
                     ],
                     alignment=MainAxisAlignment.SPACE_BETWEEN
                 )

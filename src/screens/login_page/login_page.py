@@ -14,10 +14,26 @@ from screens.airports import airports_controller
 def login_view(page: Page):
     #user_service = UserService()
     login_controller = LoginPageController(page, AuthService())
+
     def login_attempt(e):
         username = email_tf.content.value
         password = pw_tf.content.value
-        login_controller.authenticate_user(username, password)
+        response = login_controller.authenticate_user(username, password)
+        if response["success"] is True:
+            complain.visible = False
+            page.update()
+            page.go("/add_flight")
+
+        else:
+            complain.visible = True
+            page.update()
+
+
+    complain = Text(
+        value="Invalid email or password",
+        color=colors.RED,
+        visible=False
+    )
 
 
     navigation_bar = SingletonNavBar(page).instance
@@ -91,12 +107,13 @@ def login_view(page: Page):
                                 email_tf,
                                 pw_tf,
                                 submit_button,
+                                complain
                             ],
                             alignment=MainAxisAlignment.START,
                             horizontal_alignment=CrossAxisAlignment.CENTER,
                             expand=True,
                         ),
-                        navigation_bar,
+                        #navigation_bar,
                     ],
                     alignment=MainAxisAlignment.SPACE_BETWEEN
                 )

@@ -17,8 +17,8 @@ class RegisterPageController:
 
         if password != repeat_password:
             return "Passwords do not match"
-        print(self.auth_serv.register(email, password))
-        return
+        return self.auth_serv.register(email, password)
+
 
     def validate_email(self, email):
         try:
