@@ -1,8 +1,10 @@
 from flet import *
 from flet.core.alignment import center
 
+from features.users.auth_service import AuthService
 from features.users.user_service import UserService
 from screens.login_page.login_page_controller import LoginPageController
+from screens.register_page.register_page_controller import RegisterPageController
 from utils import constants
 from components.airport_card import AirportCard
 from components.sing_navigation_bar import SingletonNavBar
@@ -12,10 +14,12 @@ from screens.airports import airports_controller
 
 def register_view(page: Page):
     #user_service = UserService()
-    #page_controller = LoginPageController()
+    registration_controller = RegisterPageController(page, AuthService())
     def register_attempt(e):
         username = email_tf.content.value
         password = pw_tf.content.value
+        repeat_password = repeat_pw_tf.content.value
+        registration_controller.register_user(username, password, repeat_password)
 
 
     navigation_bar = SingletonNavBar(page).instance

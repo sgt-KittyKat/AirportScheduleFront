@@ -7,31 +7,37 @@ from utils.constants import SERVER_LINK
 
 
 class AuthService:
-    def __init__(self, user_service):
-        self.user_service = user_service
+    def __init__(self):
         self.logged_in_user = User(1, "admin", "admin", [], [])
 
 
     def login(self, email, password):
-        password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        #password_hash = str(bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))
+        password_hash = password
         data = json.dumps({"email": email, "password_hash": password_hash})
-        r = requests.post(SERVER_LINK + "/login", data)
-        response_data = r.json()
-        response_code = r.status_code
-        access_token = None
-        refresh_token = None
-        if response_code == 201:
-            access_token = response_data['access_token']
-            refresh_token = response_data['refresh_token']
-
-        return access_token, refresh_token
+        headers = {'Content-Type': 'application/json', 'Accept': 'text/plain'}
+        with requests.Session() as session:
+            r = requests.post(SERVER_LINK + "/login", data, headers=headers)
+            response_data = r.json()
+            response_code = r.status_code
+            if response_code == 200:
+                return "Login successful", session.cookies
+            else:
+                return response_data.get("error", "Invalid credentials"),
 
 
     def register(self, email, password):
-        password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        #password_hash = str(bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))
+        password_hash = password
         data = json.dumps({"email": email, "password_hash": password_hash})
-        r = requests.post(SERVER_LINK+"/register", data)
-        return r
+
+        r = requests.post(SERVER_LINK+"/register", data, headers = {'Content-Type': 'application/json', 'Accept': 'text/plain'})
+        response_data = r.json()
+        response_code = r.status_code
+        if response_code == 201:
+            return "Registration successful"
+        return response_data.get("error", "Something went wrong")
+
 
 
     def logout(self):

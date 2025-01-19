@@ -1,6 +1,7 @@
 from flet import *
 from flet.core.alignment import center
 
+from features.users.auth_service import AuthService
 from features.users.user_service import UserService
 from screens.login_page.login_page_controller import LoginPageController
 from utils import constants
@@ -12,11 +13,11 @@ from screens.airports import airports_controller
 
 def login_view(page: Page):
     #user_service = UserService()
-    #page_controller = LoginPageController()
+    login_controller = LoginPageController(page, AuthService())
     def login_attempt(e):
         username = email_tf.content.value
         password = pw_tf.content.value
-
+        login_controller.authenticate_user(username, password)
 
 
     navigation_bar = SingletonNavBar(page).instance

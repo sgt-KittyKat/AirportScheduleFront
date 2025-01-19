@@ -6,7 +6,7 @@ from utils.constants import colours
 
 
 class FlightCardUnclickable(FlightCard):
-    def __init__(self, flight: Flight, page):
+    def __init__(self, flight: Flight, page : Page):
         super().__init__(flight, page)
 
     def build(self):
