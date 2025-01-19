@@ -5,8 +5,7 @@ from utils.constants import *
 
 
 def main(page:Page):
-    page.window.height = WINDOW_HEIGHT
-    page.window.width = WINDOW_WIDTH
+    page.expand = True,
     navigator = Navigator(page)
     page.on_route_change = navigator.route_change
     page.go("/login_page")

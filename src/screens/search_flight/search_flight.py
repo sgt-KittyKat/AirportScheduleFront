@@ -208,8 +208,7 @@ def search_flight_view(page: Page):
         controls=[
             Container(
                 bgcolor=colours["background"],
-                width=WINDOW_WIDTH,
-                height=WINDOW_HEIGHT,
+                expand = True,
                 border=border.all(1, color=colours["gray_text"]),
                 border_radius=35,
                 content=Column(

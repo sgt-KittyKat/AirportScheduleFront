@@ -33,8 +33,7 @@ def add_flight_view(page: Page):
             route = "/add_flight",
             controls = [Container(
                 bgcolor=colours["background"],
-                width=WINDOW_WIDTH,
-                height=WINDOW_HEIGHT,
+                expand = True,
                 border=border.all(1, color=colours["gray_text"]),
                 border_radius=35,
                 content=Column(
