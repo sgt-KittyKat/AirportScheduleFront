@@ -16,7 +16,6 @@ class FlightCardAddable(FlightCard):
         self.card = OutlinedButton(
             content=Row(
                 [
-                    # Left Section: Outbound, Destination, Time
                     Column(
                         [
                             Text(f"{self.flight.origin} → {self.flight.destination}",
@@ -28,7 +27,6 @@ class FlightCardAddable(FlightCard):
                         alignment=MainAxisAlignment.START,
                         spacing=5,
                     ),
-                    # Right Section: Date and Flight Number
                     Column(
                         [
                             Text(self.flight.flight_number, size=16, weight=FontWeight.BOLD),

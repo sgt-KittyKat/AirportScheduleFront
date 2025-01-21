@@ -8,25 +8,16 @@ from utils.constants import colours
 class AirportCard:
 
     def __init__(self, airport:Airport, page):
-        """
-        Initialize the airportCard with airport data.
-        Args:
-            airport (airport): An instance of the airport model.
-        """
         self.airport = airport
-        self.card = None  # Will hold the Flet UI representation
+        self.card = None
         self.destination_page = f"/airports/id={airport.iata}"
         self.page = page
 
     def build(self):
-        """
-        Build and return the UI for the airportCard.
-        """
         self.card = OutlinedButton(
                 content=Container(
                     content=Row(
                         [
-                            # Left Section: Outbound, Destination, Time
                             Text(value=f"{self.airport.name}, {self.airport.iata}", size = 20)
                         ],
                         alignment=MainAxisAlignment.SPACE_BETWEEN,
@@ -36,24 +27,18 @@ class AirportCard:
                     #border_radius=10,
                     padding=padding.only(left=20, right=20, top=5, bottom=5)
                 ),
+                style=ButtonStyle(
+                    shape=RoundedRectangleBorder(radius=10),
+                ),
                 on_click = lambda e: self.page.go(self.destination_page)
         )
-        #print(self.card.content.controls[0].value + "JA DALBAEB")
-        #return self.card
 
     def update(self, airport):
-        """
-        Update the card's airport data and rebuild the UI.
-        Args:
-            airport (airport): An updated instance of the airport model.
-        """
+
         self.airport = airport
         self.build()
 
     def get_card(self):
-        """
-        Return the rendered card (build if not already built).
-        """
         if self.card is None:
             self.build()
         return self.card

@@ -82,23 +82,13 @@ def search_flight_view(page: Page):
         on_change=lambda e: update_search_results(e.data, arrival_results, arrival_tf),
     )
 
-    date_pick_button = ElevatedButton(
-        "Pick date",
-        icon=Icons.CALENDAR_MONTH,
-        on_click=lambda e: page.open(
-            DatePicker(
-                first_date=datetime.datetime.now(),
-                last_date=datetime.datetime.now(),
-            )
-        ),
-    )
 
     submit_button = ElevatedButton(
         "Search flights",
         on_click=lambda e: submit_button_click()
     )
 
-    # Separate search results containers for departure and arrival fields
+
     departure_results = Container(
         content=Column(spacing=5),
         border=border.all(1, colors.GREY),
@@ -166,10 +156,9 @@ def search_flight_view(page: Page):
         controls=[
             headline,
             Container(departure_tf),
-            departure_results,  # Dropdown for departure
+            departure_results,
             Container(arrival_tf),
-            arrival_results,  # Dropdown for arrival
-            date_pick_button,
+            arrival_results,
             submit_button,
             complain
         ],

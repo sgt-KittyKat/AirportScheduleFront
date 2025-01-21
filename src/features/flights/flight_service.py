@@ -2,7 +2,7 @@ import json
 
 import requests
 
-from daos.flight_dao import FlightDao
+
 from features.flights.flight import Flight
 from utils.constants import ADMIN, SERVER_LINK
 

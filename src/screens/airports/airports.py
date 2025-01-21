@@ -28,9 +28,6 @@ def airports_view(page: Page):
     constants.AIRPORTS_DATA = data
     airport_cards = Column(controls=[],)
 
-    airport_controller.generate_airport_page(DUMMY_AIRPORT.iata)
-    airport_cards.controls.append(AirportCard(constants.DUMMY_AIRPORT, page).get_card())
-
     search_results = Container(
         content=Column(spacing=5),
         border=border.all(1, colors.GREY),
@@ -47,7 +44,6 @@ def airports_view(page: Page):
         if query.strip():
             search_results.visible = True
 
-            # Filter results: search only at the beginning of entries
             filtered_results = [
                 f"{str(item[0])}, {str(item[1])}, {str(item[2])}"
                 for item in data
@@ -67,11 +63,10 @@ def airports_view(page: Page):
 
     def select_result(selected_item):
         page.update()
-        print(f"selected_item: {selected_item}")  # Debugging
 
         search_tf.content.value = selected_item
-        search_results.content.controls.clear()  # Clear results after selection
-        search_results.visible = False  # Hide the results
+        search_results.content.controls.clear()
+        search_results.visible = False
 
         airport_data = selected_item.split(", ")
 
@@ -80,11 +75,9 @@ def airports_view(page: Page):
         # print(new_airport)
         airport_controller.generate_airport_page(new_airport.iata)
         new_card = AirportCard(new_airport, page).get_card()
-        # page.controls.append(new_card)
         airport_cards.controls.append(
             new_card
         )
-        # print(airport_cards)
         page.update()
 
     return View(

@@ -23,7 +23,7 @@ class SingletonNavBar:
     @staticmethod
     def create_navigation_bar(page: Page):
         destinations = [
-            NavigationBarDestination(icon=Icons.AIRPLANEMODE_ON, label="Your Flights"),
+            #NavigationBarDestination(icon=Icons.AIRPLANEMODE_ON, label="Your Flights"),
             NavigationBarDestination(icon=Icons.SEARCH, label="Add Flight"),
             NavigationBarDestination(icon=Icons.AIRPORT_SHUTTLE, label="Airports"),
         ]
