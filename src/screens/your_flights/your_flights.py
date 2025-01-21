@@ -8,7 +8,6 @@ from features.flights.flight import Flight
 from features.flights.flight_service import FlightService
 from utils import constants
 from utils.constants import colours, HEAD_FONT_SIZE, WINDOW_WIDTH, WINDOW_HEIGHT
-from daos.flight_dao import FlightDao
 
 def your_flights_view(page: Page):
     #flight_service = FlightService(FlightDao())

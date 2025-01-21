@@ -22,8 +22,8 @@ def airport_template_view(page: Page, airport: Airport):
         controls=arrivals_data,
         visible=True,
         spacing=5,
-        expand=True,  # Ensure it expands within the parent container
-        auto_scroll=True,  # Enable scrolling
+        expand=True,
+        auto_scroll=True,
     )
 
     # Departures ListView
@@ -31,8 +31,8 @@ def airport_template_view(page: Page, airport: Airport):
         controls=departures_data,
         visible=False,
         spacing=5,
-        expand=True,  # Ensure it expands within the parent container
-        auto_scroll=True,  # Enable scrolling
+        expand=True,
+        auto_scroll=True,
     )
 
     # Function to toggle visibility

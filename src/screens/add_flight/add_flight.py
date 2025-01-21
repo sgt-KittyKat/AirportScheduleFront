@@ -2,6 +2,7 @@
 from flet import *
 from flet.core.alignment import center
 
+from components.logout_button import LogoutButton
 from components.sing_navigation_bar import SingletonNavBar
 from utils.constants import *
 
@@ -29,6 +30,7 @@ def add_flight_view(page: Page):
     navigation_bar = SingletonNavBar(page).instance
     search_button = create_button(page, "Search your journey")
     upload_button = create_button(page, "Upload a ticket")
+    logout_button = LogoutButton(page).get_button()
     return View(
             route = "/add_flight",
             controls = [Container(
@@ -47,9 +49,13 @@ def add_flight_view(page: Page):
                                 ),
                                 search_button,
                                 upload_button,
+                                Container(
+                                    content = logout_button,
+                                    alignment = alignment.top_right,
+                                )
                             ],
                             alignment=MainAxisAlignment.SPACE_BETWEEN,
-                            #expand=True,
+                            expand=True,
                         ),
                         navigation_bar
                     ],

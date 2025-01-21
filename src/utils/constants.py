@@ -30,9 +30,6 @@ ADMIN = User(
         flight_history=[]
 )
 
-DUMMY_AIRPORT = Airport("KURWA AIRPORT", "BER", "KURISKO",)
-
-DB_PATH = "..."
 
 SERVER_LINK = "http://127.0.0.1:5000"
 
